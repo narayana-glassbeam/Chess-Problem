@@ -128,6 +128,23 @@ public class Board {
 	}
 	
 	/**
+	 * For debugging purpose
+	 */
+	public String toString(){
+		String result = "";
+		
+		for(int i=0; i< this.width; i++){
+			for(int j=0; j< this.height; j++){
+				result += this.board[i][j] + " ";
+			}
+			result += "\n";
+		}
+
+		return result;
+	}
+	
+	
+	/**
 	 * Copy the board
 	 */
 	@SuppressWarnings("unchecked")

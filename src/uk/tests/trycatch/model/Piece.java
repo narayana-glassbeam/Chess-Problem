@@ -7,7 +7,7 @@ package uk.tests.trycatch.model;
  * @author Jonathan
  *
  */
-public abstract class Piece {
+public abstract class Piece implements IPiece {
 
 	// Position inside the row
 	private int row;

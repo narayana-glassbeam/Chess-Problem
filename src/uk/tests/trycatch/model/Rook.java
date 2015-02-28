@@ -21,7 +21,18 @@ public class Rook extends Piece {
 	
 	
 	public String toString() {
-		return ConstantsUtil.ROOK+super.toString();
+		return ConstantsUtil.ROOK + super.toString();
 	  }
+	
+	public Boolean isTreatening(Piece p){
+		
+		// The piece is being threatened by the rook if the piece stays in the same row or the same column
+		if(this.getRow() == p.getRow() // Horizontal
+				|| this.getCol() == p.getCol() // Vertical 
+				)
+			return new Boolean(true);
+		
+		return new Boolean(false);
+	}
 
 }

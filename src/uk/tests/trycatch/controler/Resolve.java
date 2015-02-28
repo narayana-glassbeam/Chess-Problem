@@ -2,8 +2,10 @@ package uk.tests.trycatch.controler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import uk.tests.trycatch.model.Board;
+import uk.tests.trycatch.model.Piece;
 import uk.tests.trycatch.model.Rook;
 import uk.tests.trycatch.util.ConstantsUtil;
 
@@ -11,9 +13,10 @@ public class Resolve {
 
 	public static void main(String[] args) {
 
-		Board board = new Board(2, 2);
+		Board board = new Board(3, 3);
 		
 		 ArrayList<String> pieces = new ArrayList<String>();
+		 pieces.add(ConstantsUtil.ROOK);	 
 		 pieces.add(ConstantsUtil.ROOK);	 
 		 pieces.add(ConstantsUtil.ROOK);	 
 
@@ -34,9 +37,14 @@ public class Resolve {
 				if(!board.getBoard()[row][col].equals(ConstantsUtil.STATE_FREE))
 					continue;
 				
+				Piece pieceToPut = new Rook(row, col);
+				// Check if is it possible put the piece into the board safely
+				if(!isSafe(pieceToPut, board.getPieces()))
+					continue;
+				
 				Board boardAux = board.copyBoard();
 				boardAux.getBoard()[row][col]=piece;
-				boardAux.getPieces().add(new Rook(row, col));
+				boardAux.getPieces().add(pieceToPut);
 				if(null != boardAux){
 					if(piecesLeft.isEmpty()){						
 						boards.add(boardAux);
@@ -60,5 +68,25 @@ public class Resolve {
 		System.out.println("Board's number: " + boards.size());
 		
 	}
+	
+	private static boolean isSafe(Piece piece, List<Piece> piecesInBoard){
+
+		boolean isSafe = true;
+		
+		for (Iterator<Piece> iterator = piecesInBoard.iterator(); iterator.hasNext();) {
+			Piece pieceAux = (Piece) iterator.next();
+			isSafe &= !isThreatened(piece, pieceAux);
+		}
+
+		return isSafe;
+		
+	}
+
+	private static boolean isThreatened(Piece piece1, Piece piece2){
+		return (piece1.isTreatening(piece2) || piece1.isTreatening(piece2));
+		
+	}
+
+	
 	
 }
