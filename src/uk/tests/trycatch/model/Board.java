@@ -1,5 +1,6 @@
 package uk.tests.trycatch.model;
 
+import uk.tests.trycatch.util.ConstantsUtil;
 
 /**
  * Representation of a chess board.
@@ -18,6 +19,7 @@ public class Board {
 		this.width = width;
 		this.height = height;
 		this.board = new String[this.width][this.height];
+		this.inizializeBoard();
 	}
 		
 	/** Number of rows */
@@ -72,7 +74,23 @@ public class Board {
 		this.board = board;
 	}
 
-
+	/**
+	 * Initialize the board
+	 */
+	private void inizializeBoard(){		
+		
+		for(int i=0; i< this.width; i++){
+			for(int j=0; j< this.height; j++){
+				this.board[i][j] = ConstantsUtil.STATE_FREE;
+			}
+		}
+		
+	}
+	
+	
+	/**
+	 * Print the board
+	 */
 	public void printBoard(){
 		
 		for(int i=0; i< this.width; i++){
@@ -84,7 +102,10 @@ public class Board {
 		
 		System.out.println();
 	}
-
+	
+	/**
+	 * Copy the board
+	 */
 	public Board copyBoard(){
 		Board copy = new Board(this.width, this.height);
 		
