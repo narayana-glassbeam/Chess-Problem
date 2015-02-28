@@ -1,6 +1,7 @@
 package uk.tests.trycatch.controler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,15 +22,27 @@ public class Resolve {
 		 pieces.add(ConstantsUtil.KING);
 		 pieces.add(ConstantsUtil.ROOK);
 
-		 ArrayList<Board> boards = new ArrayList<Board>(); 
+		 HashMap<Integer, Board> boards = new HashMap<Integer, Board>(); 
+		 long start = System.currentTimeMillis();
 		 resolve(board, pieces, boards);
+		 long step = System.currentTimeMillis();
 		 printBoards(boards);
- 
+
+		 long end = System.currentTimeMillis();
+		 
+
+		 System.out.println("Timming : " );
+//		 System.out.println("Searching solutions : " + TimeUnit.MILLISECONDS.toSeconds(step - start) );
+//		 System.out.println("Printing solutions : " + TimeUnit.MILLISECONDS.toSeconds(end - step) );
+//		 System.out.println("Total time : " + TimeUnit.MILLISECONDS.toSeconds(end - start) );
+		 System.out.println("Searching solutions : " + (step - start) + " ms");
+		 System.out.println("Printing solutions : " + (end - step) + " ms");
+		 System.out.println("Total time : " + (end - start) + " ms");
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final ArrayList<Board> boards){
+	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final HashMap<Integer, Board> boards){
 		
 		String piece = piecesLeft.remove(0);
 		for(int row=0; row<board.getWidth(); row++){
@@ -47,8 +60,8 @@ public class Resolve {
 				boardAux.getBoard()[row][col]=piece;
 				boardAux.getPieces().add(pieceToPut);
 				if(null != boardAux){
-					if(piecesLeft.isEmpty()){						
-						boards.add(boardAux);
+					if(piecesLeft.isEmpty()){
+						boards.put(boardAux.hashCode(), boardAux);
 					}else{
 						resolve(boardAux, (ArrayList<String>)piecesLeft.clone(), boards); 
 					}
@@ -58,9 +71,9 @@ public class Resolve {
 	}
 	
 
-	private static void printBoards(final ArrayList<Board> boards){
+	private static void printBoards(final HashMap<Integer, Board> boards){
 		
-		Iterator<Board> it = boards.iterator();
+		Iterator<Board> it = boards.values().iterator();
 		while(it.hasNext()){
 			Board board = it.next();
 			board.printBoard();

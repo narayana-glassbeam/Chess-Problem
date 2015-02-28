@@ -40,7 +40,8 @@ public abstract class Piece implements IPiece {
 	public void setCol(int col) {
 		this.col = col;
 	}
-
+	
+	@Override
 	public String toString() {
 		return "(" + this.row + "," + this.col + ")";
 	  }

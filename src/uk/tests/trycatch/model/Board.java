@@ -130,6 +130,7 @@ public class Board {
 	/**
 	 * For debugging purpose
 	 */
+	@Override
 	public String toString(){
 		String result = "";
 		
@@ -160,4 +161,13 @@ public class Board {
 		copy.setPieces((ArrayList<Piece>) this.pieces.clone());
 		return copy;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return this.toString().hashCode();
+	}
+	
 }

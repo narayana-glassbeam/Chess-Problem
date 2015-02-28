@@ -16,6 +16,7 @@ public class King extends Piece {
 		super(row, col);
 	}
 	
+	@Override
 	public String toString() {
 		return ConstantsUtil.KING + super.toString();
 	}

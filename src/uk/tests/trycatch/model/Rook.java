@@ -16,6 +16,7 @@ public class Rook extends Piece {
 		super(row, col);
 	}
 	
+	@Override
 	public String toString() {
 		return ConstantsUtil.ROOK + super.toString();
 	}
