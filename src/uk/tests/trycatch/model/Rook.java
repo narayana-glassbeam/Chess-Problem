@@ -18,5 +18,10 @@ public class Rook extends Piece {
 	public String print(){
 		return ConstantsUtil.ROOK;
 	}
+	
+	
+	public String toString() {
+		return ConstantsUtil.ROOK+super.toString();
+	  }
 
 }

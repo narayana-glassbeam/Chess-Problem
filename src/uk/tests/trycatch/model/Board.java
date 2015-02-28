@@ -1,5 +1,7 @@
 package uk.tests.trycatch.model;
 
+import java.util.ArrayList;
+
 import uk.tests.trycatch.util.ConstantsUtil;
 
 /**
@@ -19,6 +21,7 @@ public class Board {
 		this.width = width;
 		this.height = height;
 		this.board = new String[this.width][this.height];
+		this.pieces= new ArrayList<Piece>();
 		this.inizializeBoard();
 	}
 		
@@ -30,6 +33,10 @@ public class Board {
 
 	/** Board's positions */
 	private String[][] board;
+	
+	/** Board's pieces */
+	private ArrayList<Piece> pieces;
+	
 	
 	/**
 	 * @return the width
@@ -73,6 +80,21 @@ public class Board {
 	public void setBoard(String[][] board) {
 		this.board = board;
 	}
+	
+	
+	/**
+	 * @return the pieces
+	 */
+	public ArrayList<Piece> getPieces() {
+		return pieces;
+	}
+
+	/**
+	 * @param pieces the pieces to set
+	 */
+	public void setPieces(ArrayList<Piece> pieces) {
+		this.pieces = pieces;
+	}
 
 	/**
 	 * Initialize the board
@@ -99,13 +121,16 @@ public class Board {
 			}
 			System.out.println();
 		}
-		
+
+		System.out.print("Pieces position for this board: " + this.pieces);
+		System.out.println();
 		System.out.println();
 	}
 	
 	/**
 	 * Copy the board
 	 */
+	@SuppressWarnings("unchecked")
 	public Board copyBoard(){
 		Board copy = new Board(this.width, this.height);
 		
@@ -114,6 +139,8 @@ public class Board {
 				copy.getBoard()[i][j] = this.board[i][j];
 			}
 		}
+		
+		copy.setPieces((ArrayList<Piece>) this.pieces.clone());
 		return copy;
 	}
 }

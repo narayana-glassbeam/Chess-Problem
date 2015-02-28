@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import uk.tests.trycatch.model.Board;
+import uk.tests.trycatch.model.Rook;
 import uk.tests.trycatch.util.ConstantsUtil;
 
 public class Resolve {
 
 	public static void main(String[] args) {
 
-		Board board = new Board(3, 3);
+		Board board = new Board(2, 2);
 		
 		 ArrayList<String> pieces = new ArrayList<String>();
 		 pieces.add(ConstantsUtil.ROOK);	 
@@ -24,9 +25,9 @@ public class Resolve {
 
 
 	@SuppressWarnings("unchecked")
-	public static void resolve(final Board board, final ArrayList<String> pieces, final ArrayList<Board> boards){
+	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final ArrayList<Board> boards){
 		
-		String piece = pieces.remove(0);
+		String piece = piecesLeft.remove(0);
 		for(int row=0; row<board.getWidth(); row++){
 			for(int col=0; col<board.getHeight(); col++){
 				// If it isn't empty skip the iteration
@@ -35,11 +36,12 @@ public class Resolve {
 				
 				Board boardAux = board.copyBoard();
 				boardAux.getBoard()[row][col]=piece;
+				boardAux.getPieces().add(new Rook(row, col));
 				if(null != boardAux){
-					if(pieces.isEmpty()){						
+					if(piecesLeft.isEmpty()){						
 						boards.add(boardAux);
 					}else{
-						resolve(boardAux, (ArrayList<String>)pieces.clone(), boards); 
+						resolve(boardAux, (ArrayList<String>)piecesLeft.clone(), boards); 
 					}
 				}
 			}

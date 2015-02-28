@@ -1,5 +1,6 @@
 package uk.tests.trycatch.model;
 
+
 /**
  * Abstract class for all board's pieces
  * 
@@ -40,5 +41,8 @@ public abstract class Piece {
 		this.col = col;
 	}
 
+	public String toString() {
+		return "(" + this.row + "," + this.col + ")";
+	  }
 	
 }
