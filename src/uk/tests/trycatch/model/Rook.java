@@ -4,6 +4,8 @@ import uk.tests.trycatch.util.ConstantsUtil;
 
 /**
  * Representation of a Rook piece.
+ * 
+ * A rook moves any number of vacant squares in a horizontal or vertical direction.
  *
  * @author Jonathan
  *
@@ -14,15 +16,9 @@ public class Rook extends Piece {
 		super(row, col);
 	}
 	
-	
-	public String print(){
-		return ConstantsUtil.ROOK;
-	}
-	
-	
 	public String toString() {
 		return ConstantsUtil.ROOK + super.toString();
-	  }
+	}
 	
 	public Boolean isTreatening(Piece p){
 		

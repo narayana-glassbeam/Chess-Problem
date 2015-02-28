@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import uk.tests.trycatch.model.Board;
+import uk.tests.trycatch.model.King;
 import uk.tests.trycatch.model.Piece;
 import uk.tests.trycatch.model.Rook;
 import uk.tests.trycatch.util.ConstantsUtil;
@@ -16,9 +17,9 @@ public class Resolve {
 		Board board = new Board(3, 3);
 		
 		 ArrayList<String> pieces = new ArrayList<String>();
-		 pieces.add(ConstantsUtil.ROOK);	 
-		 pieces.add(ConstantsUtil.ROOK);	 
-		 pieces.add(ConstantsUtil.ROOK);	 
+		 pieces.add(ConstantsUtil.KING);
+		 pieces.add(ConstantsUtil.KING);
+		 pieces.add(ConstantsUtil.ROOK);
 
 		 ArrayList<Board> boards = new ArrayList<Board>(); 
 		 resolve(board, pieces, boards);
@@ -37,7 +38,7 @@ public class Resolve {
 				if(!board.getBoard()[row][col].equals(ConstantsUtil.STATE_FREE))
 					continue;
 				
-				Piece pieceToPut = new Rook(row, col);
+				Piece pieceToPut = newPiece(piece,row, col);
 				// Check if is it possible put the piece into the board safely
 				if(!isSafe(pieceToPut, board.getPieces()))
 					continue;
@@ -83,10 +84,19 @@ public class Resolve {
 	}
 
 	private static boolean isThreatened(Piece piece1, Piece piece2){
-		return (piece1.isTreatening(piece2) || piece1.isTreatening(piece2));
+		return (piece1.isTreatening(piece2) || piece2.isTreatening(piece1));
 		
 	}
 
+	private static Piece newPiece(String pieceType, int row, int col){
+		
+		if(ConstantsUtil.KING.equals(pieceType)){
+			return new King(row, col);
+		} else if(ConstantsUtil.ROOK.equals(pieceType)){
+			return new Rook(row, col);
+		} else return null;
+		
+	}
 	
 	
 }
