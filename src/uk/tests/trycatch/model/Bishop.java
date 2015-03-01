@@ -23,7 +23,7 @@ public class Bishop extends Piece {
 
 	public Boolean isTreatening(Piece p){
 		
-		// The piece is being threatened by the Bishop if the piece stays in any squares in a diagonal direction.
+		// The piece is being threatened by the Bishop if the piece stays in any square in a diagonal direction.
 		if (Math.abs(this.getRow() - p.getRow()) == Math.abs(this.getCol() - p.getCol()))				
 			return new Boolean(true);
 		

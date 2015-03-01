@@ -5,7 +5,7 @@ import uk.tests.trycatch.util.ConstantsUtil;
 /**
  * Representation of a Rook piece.
  * 
- * A rook moves any number of vacant squares in a horizontal or vertical direction.
+ * A rook moves any number of vacant squares in an horizontal or vertical direction.
  *
  * @author Jonathan
  *

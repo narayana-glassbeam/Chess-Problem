@@ -1,7 +1,7 @@
 package uk.tests.trycatch.model;
 
 /**
- * Abstract class for all board's pieces
+ * Abstract class for all board pieces
  * 
  * @author Jonathan
  *
@@ -14,7 +14,7 @@ public interface  IPiece {
 	 * 	
 	 * @param p
 	 *
-	 * @return True if the piece is treatened
+	 * @return True if the piece is threatened
 	 */
 	abstract Boolean isTreatening(Piece p);
 

@@ -23,7 +23,7 @@ public class Knight extends Piece {
 
 	public Boolean isTreatening(Piece p){
 		
-		// The piece is being threatened by the Knight if the piece stays in any squares in a horizontal, vertical, or diagonal direction.
+		// The piece is being threatened by the Knight if the piece stays in any square in a horizontal, vertical, or diagonal direction.
 		if( Math.abs(Math.abs(this.getRow() - p.getRow()) - Math.abs(this.getCol() - p.getCol())) == 1) 
 			return new Boolean(true);
 		
