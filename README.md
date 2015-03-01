@@ -17,20 +17,20 @@ Example
 Input: 3×3 board containing 2 Kings and 1 Rook.
 
 **K** | **-** | **K** |  
-**-** | **-** | **-** | 
-**-** | **R** | **-** | 
-
-**K** | **-** | **-** | 
-**-** | **-** | **R** | 
-**K** | **-** | **-** | 
+**-** | **-** | **-** |  
+**-** | **R** | **-** |  
+  
+**K** | **-** | **-** |  
+**-** | **-** | **R** |  
+**K** | **-** | **-** |  
 
 **-** | **-** | **K** |  
-**R** | **-** | **-** | 
-**-** | **-** | **K** |  
-
-**-** | **R** | **-** | 
-**-** | **-** | **-** | 
-**K** | **-** | **K** |  
+**R** | **-** | **-** |  
+**-** | **-** | **K** |   
+  
+**-** | **R** | **-** |  
+**-** | **-** | **-** |  
+**K** | **-** | **K** |   
 
 
 Solution
@@ -41,9 +41,9 @@ The procedure is as follows.
 - The first available piece is taken. We then try to put it in every spare board position. (N candidate boards could be generated. N = free squares in the board)
 
 - There are 3 possibilities:
-1. The piece attacks other piece, or the piece is threatened (attacked) by one of the other pieces in the board. This board is not a solution. Find the next free square.
-2. The piece is placed safely and it is not the last one. A partial solution has been reached. Repeat the process with the following pieces.
-3. The piece is placed safely and it is the last one of the pieces. A solution has been reached.
+	1. The piece attacks other piece, or the piece is threatened (attacked) by one of the other pieces in the board. This board is not a solution. Find the next free square.
+	2. The piece is placed safely and it is not the last one. A partial solution has been reached. Repeat the process with the following pieces.
+	3. The piece is placed safely and it is the last one of the pieces. A solution has been reached.
 
 
 
