@@ -16,38 +16,6 @@ import uk.tests.trycatch.util.ConstantsUtil;
 
 public class Resolve {
 
-	public static void main(String[] args) {
-
-		Board board = new Board(7, 7);
-		
-		 ArrayList<String> pieces = new ArrayList<String>();
-		 pieces.add(ConstantsUtil.QUEEN);
-		 pieces.add(ConstantsUtil.QUEEN);
-		 pieces.add(ConstantsUtil.BISHOP);
-		 pieces.add(ConstantsUtil.BISHOP);
-		 pieces.add(ConstantsUtil.KNIGHT);
-		 pieces.add(ConstantsUtil.KING);
-		 pieces.add(ConstantsUtil.KING);
-		 
-		 HashMap<Integer, Board> boards = new HashMap<Integer, Board>(); 
-		 long start = System.currentTimeMillis();
-		 resolve(board, pieces, boards);
-		 long step = System.currentTimeMillis();
-		 printBoards(boards);
-
-		 long end = System.currentTimeMillis();
-		 
-
-		 System.out.println("Timming : " );
-//		 System.out.println("Searching solutions : " + TimeUnit.MILLISECONDS.toSeconds(step - start) );
-//		 System.out.println("Printing solutions : " + TimeUnit.MILLISECONDS.toSeconds(end - step) );
-//		 System.out.println("Total time : " + TimeUnit.MILLISECONDS.toSeconds(end - start) );
-		 System.out.println("Searching solutions : " + (step - start) + " ms");
-		 System.out.println("Printing solutions : " + (end - step) + " ms");
-		 System.out.println("Total time : " + (end - start) + " ms");
-	}
-
-
 	@SuppressWarnings("unchecked")
 	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final HashMap<Integer, Board> boards){
 		
@@ -59,7 +27,7 @@ public class Resolve {
 					continue;
 				
 				Piece pieceToPut = newPiece(piece,row, col);
-				// Check if is it possible put the piece into the board safely
+				// Check if it is possible to put the piece into the board safely
 				if(!isSafe(pieceToPut, board.getPieces()))
 					continue;
 				
@@ -77,19 +45,13 @@ public class Resolve {
 		}
 	}
 	
-
-	private static void printBoards(final HashMap<Integer, Board> boards){
-		
-		Iterator<Board> it = boards.values().iterator();
-		while(it.hasNext()){
-			Board board = it.next();
-			board.printBoard();
-		}
-		
-		System.out.println("Board's number: " + boards.size());
-		
-	}
-	
+	/**
+	 * One piece is safe in the board, if the new piece is not threatened by any piece in the board,
+	 * and the new piece doesn't attack the other pieces in the board.
+	 * @param piece
+	 * @param piecesInBoard
+	 * @return
+	 */
 	private static boolean isSafe(Piece piece, List<Piece> piecesInBoard){
 
 		boolean isSafe = true;
@@ -103,6 +65,13 @@ public class Resolve {
 		
 	}
 
+	/**
+	 * Two pieces are threatened if one attacks the other or vice-versa
+	 * 
+	 * @param piece1
+	 * @param piece2
+	 * @return True if one of the pieces is threatened.
+	 */
 	private static boolean isThreatened(Piece piece1, Piece piece2){
 		return (piece1.isTreatening(piece2) || piece2.isTreatening(piece1));
 		
