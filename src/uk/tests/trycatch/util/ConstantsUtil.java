@@ -10,6 +10,6 @@ public class ConstantsUtil {
 	public static final String BISHOP = "B";
 
 	// Square States
-	public static final String STATE_FREE ="-"; 
+	public static final String EMPTY ="-"; 
 
 }

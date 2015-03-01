@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import uk.tests.trycatch.model.Bishop;
 import uk.tests.trycatch.model.Board;
 import uk.tests.trycatch.model.King;
+import uk.tests.trycatch.model.Knight;
 import uk.tests.trycatch.model.Piece;
+import uk.tests.trycatch.model.Queen;
 import uk.tests.trycatch.model.Rook;
 import uk.tests.trycatch.util.ConstantsUtil;
 
@@ -15,13 +18,17 @@ public class Resolve {
 
 	public static void main(String[] args) {
 
-		Board board = new Board(3, 3);
+		Board board = new Board(7, 7);
 		
 		 ArrayList<String> pieces = new ArrayList<String>();
+		 pieces.add(ConstantsUtil.QUEEN);
+		 pieces.add(ConstantsUtil.QUEEN);
+		 pieces.add(ConstantsUtil.BISHOP);
+		 pieces.add(ConstantsUtil.BISHOP);
+		 pieces.add(ConstantsUtil.KNIGHT);
 		 pieces.add(ConstantsUtil.KING);
 		 pieces.add(ConstantsUtil.KING);
-		 pieces.add(ConstantsUtil.ROOK);
-
+		 
 		 HashMap<Integer, Board> boards = new HashMap<Integer, Board>(); 
 		 long start = System.currentTimeMillis();
 		 resolve(board, pieces, boards);
@@ -45,10 +52,10 @@ public class Resolve {
 	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final HashMap<Integer, Board> boards){
 		
 		String piece = piecesLeft.remove(0);
-		for(int row=0; row<board.getWidth(); row++){
-			for(int col=0; col<board.getHeight(); col++){
+		for(int row=0; row<board.getRows(); row++){
+			for(int col=0; col<board.getColumns(); col++){
 				// If it isn't empty skip the iteration
-				if(!board.getBoard()[row][col].equals(ConstantsUtil.STATE_FREE))
+				if(!board.getBoard()[row][col].equals(ConstantsUtil.EMPTY))
 					continue;
 				
 				Piece pieceToPut = newPiece(piece,row, col);
@@ -107,6 +114,12 @@ public class Resolve {
 			return new King(row, col);
 		} else if(ConstantsUtil.ROOK.equals(pieceType)){
 			return new Rook(row, col);
+		} if(ConstantsUtil.KNIGHT.equals(pieceType)){
+			return new Knight(row, col);
+		} else if(ConstantsUtil.QUEEN.equals(pieceType)){
+			return new Queen(row, col);
+		} else if(ConstantsUtil.BISHOP.equals(pieceType)){
+			return new Bishop(row, col);
 		} else return null;
 		
 	}

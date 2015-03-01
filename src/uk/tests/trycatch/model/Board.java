@@ -7,8 +7,8 @@ import uk.tests.trycatch.util.ConstantsUtil;
 /**
  * Representation of a chess board.
  * 
- * width == Number of columns
- * height == Number of rows
+ * columns == Number of columns
+ * rows == Number of rows
  * board == Board's positions 
  * 
  * @author Jonathan
@@ -16,20 +16,20 @@ import uk.tests.trycatch.util.ConstantsUtil;
  */
 public class Board {
 	
-	public Board(int width, int height) {
+	public Board(int columns, int rows) {
 		super();
-		this.width = width;
-		this.height = height;
-		this.board = new String[this.width][this.height];
+		this.columns = columns;
+		this.rows = rows;
+		this.board = new String[this.rows][this.columns];
 		this.pieces= new ArrayList<Piece>();
 		this.inizializeBoard();
 	}
 		
-	/** Number of rows */
-	private int width;
-	
 	/** Number of columns */
-	private int height;
+	private int columns;
+	
+	/** Number of rows */
+	private int rows;
 
 	/** Board's positions */
 	private String[][] board;
@@ -39,31 +39,31 @@ public class Board {
 	
 	
 	/**
-	 * @return the width
+	 * @return the columns
 	 */
-	public int getWidth() {
-		return width;
+	public int getColumns() {
+		return columns;
 	}
 
 	/**
-	 * @param width the width to set
+	 * @param columns the columns to set
 	 */
-	public void setWidth(int width) {
-		this.width = width;
+	public void setColumns(int columns) {
+		this.columns = columns;
 	}
 
 	/**
-	 * @return the height
+	 * @return the rows
 	 */
-	public int getHeight() {
-		return height;
+	public int getRows() {
+		return rows;
 	}
 
 	/**
-	 * @param height the height to set
+	 * @param rows the rows to set
 	 */
-	public void setHeight(int height) {
-		this.height = height;
+	public void setRows(int rows) {
+		this.rows = rows;
 	}
 
 	
@@ -101,9 +101,9 @@ public class Board {
 	 */
 	private void inizializeBoard(){		
 		
-		for(int i=0; i< this.width; i++){
-			for(int j=0; j< this.height; j++){
-				this.board[i][j] = ConstantsUtil.STATE_FREE;
+		for(int row=0; row< this.rows; row++){
+			for(int col=0; col< this.columns; col++){
+				this.board[row][col] = ConstantsUtil.EMPTY;
 			}
 		}
 		
@@ -115,9 +115,9 @@ public class Board {
 	 */
 	public void printBoard(){
 		
-		for(int i=0; i< this.width; i++){
-			for(int j=0; j< this.height; j++){
-				System.out.print(this.board[i][j] + " ");
+		for(int row=0; row< this.rows; row++){
+			for(int col=0; col< this.columns; col++){
+				System.out.print(this.board[row][col] + " ");
 			}
 			System.out.println();
 		}
@@ -134,9 +134,9 @@ public class Board {
 	public String toString(){
 		String result = "";
 		
-		for(int i=0; i< this.width; i++){
-			for(int j=0; j< this.height; j++){
-				result += this.board[i][j] + " ";
+		for(int row=0; row< this.rows; row++){
+			for(int col=0; col< this.columns; col++){
+				result += this.board[row][col] + " ";
 			}
 			result += "\n";
 		}
@@ -150,11 +150,11 @@ public class Board {
 	 */
 	@SuppressWarnings("unchecked")
 	public Board copyBoard(){
-		Board copy = new Board(this.width, this.height);
+		Board copy = new Board(this.columns, this.rows);
 		
-		for(int i=0; i< this.width; i++){
-			for(int j=0; j< this.height; j++){
-				copy.getBoard()[i][j] = this.board[i][j];
+		for(int row=0; row< this.rows; row++){
+			for(int col=0; col< this.columns; col++){
+				copy.getBoard()[row][col] = this.board[row][col];
 			}
 		}
 		
