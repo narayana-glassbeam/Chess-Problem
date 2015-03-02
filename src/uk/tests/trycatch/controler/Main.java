@@ -2,7 +2,6 @@ package uk.tests.trycatch.controler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -69,27 +68,17 @@ public class Main {
 
 		 HashMap<Integer, Board> boards = new HashMap<Integer, Board>(); 
 		 long start = System.currentTimeMillis();
+
 		 Resolve.resolve(board, pieces, boards);
-		 
-		 System.out.println();
-		 System.out.println("***************************************************" );
-		 System.out.println("****** Please wait. Calculations in progress ******" );
-		 System.out.println("***************************************************" );
-		 System.out.println();
-		 
-		 long step = System.currentTimeMillis();
-		 printBoards(boards);
+		 		
 		 long end = System.currentTimeMillis();
-		 
+
+		System.out.println("Number of boards: " + boards.size());
 
 		 System.out.println("Timing : " );
 		 if ((end - start) > 1000){
-			 System.out.println("Searching solutions : " + TimeUnit.MILLISECONDS.toSeconds(step - start) + " seconds");
-			 System.out.println("Printing solutions : " + TimeUnit.MILLISECONDS.toSeconds(end - step) + " seconds");
 			 System.out.println("Total time : " + TimeUnit.MILLISECONDS.toSeconds(end - start) + " seconds");
 		 } else {
-			 System.out.println("Searching solutions : " + (step - start) + " ms");
-			 System.out.println("Printing solutions : " + (end - step) + " ms");
 			 System.out.println("Total time : " + (end - start) + " ms");
 		 }
 		 
@@ -138,23 +127,6 @@ public class Main {
 			return readInt(in,inputStr);
 		}
 		return input;
-	}
-
-
-	/**
-	 * Print all possible boards 
-	 * @param boards
-	 */
-	private static void printBoards(final HashMap<Integer, Board> boards){
-		
-		Iterator<Board> it = boards.values().iterator();
-		while(it.hasNext()){
-			Board board = it.next();
-			board.printBoard();
-		}
-		
-		System.out.println("Number of boards: " + boards.size());
-		
 	}
 	
 }

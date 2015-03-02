@@ -143,24 +143,6 @@ public class Board {
 
 		return result;
 	}
-	
-	
-	/**
-	 * Copy the board
-	 */
-	@SuppressWarnings("unchecked")
-	public Board copyBoard(){
-		Board copy = new Board(this.columns, this.rows);
-		
-		for(int row=0; row< this.rows; row++){
-			for(int col=0; col< this.columns; col++){
-				copy.getBoard()[row][col] = this.board[row][col];
-			}
-		}
-		
-		copy.setPieces((ArrayList<Piece>) this.pieces.clone());
-		return copy;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

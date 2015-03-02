@@ -16,9 +16,9 @@ import uk.tests.trycatch.util.ConstantsUtil;
 
 public class Resolve {
 
-	@SuppressWarnings("unchecked")
 	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final HashMap<Integer, Board> boards){
 		
+		// Take the first availiable piece
 		String piece = piecesLeft.remove(0);
 		for(int row=0; row<board.getRows(); row++){
 			for(int col=0; col<board.getColumns(); col++){
@@ -30,19 +30,31 @@ public class Resolve {
 				// Check if it is possible to put the piece into the board safely
 				if(!isSafe(pieceToPut, board.getPieces()))
 					continue;
+
+				// Add piece piece to the board as parcial solution
+				board.getBoard()[row][col]=piece;
+				board.getPieces().add(0,pieceToPut);
 				
-				Board boardAux = board.copyBoard();
-				boardAux.getBoard()[row][col]=piece;
-				boardAux.getPieces().add(pieceToPut);
-				if(null != boardAux){
-					if(piecesLeft.isEmpty()){
-						boards.put(boardAux.hashCode(), boardAux);
-					}else{
-						resolve(boardAux, (ArrayList<String>)piecesLeft.clone(), boards); 
+				if(piecesLeft.isEmpty()){
+					// If there is not more pieces is a final solution
+					if(!boards.containsKey(board.hashCode())){
+						// Avoid duplicate results
+						boards.put(board.hashCode(), board);
+						board.printBoard();
 					}
+				}else{
+					// Parcial solution. Resolve a smaller problem
+					resolve(board, piecesLeft, boards); 
 				}
+				
+				// Backtracking: Remove the piece of the board
+				board.getBoard()[row][col]=ConstantsUtil.EMPTY;
+				board.getPieces().remove(0);				
 			}
 		}
+		
+		// Backtracking: Return the piece
+		piecesLeft.add(0, piece);
 	}
 	
 	/**
