@@ -23,7 +23,7 @@ public class Resolve {
 		for(int row=0; row<board.getRows(); row++){
 			for(int col=0; col<board.getColumns(); col++){
 				// If it isn't empty skip the iteration
-				if(!board.getBoard()[row][col].equals(ConstantsUtil.EMPTY))
+				if(board.getBoard()[row][col] != null)
 					continue;
 				
 				Piece pieceToPut = newPiece(piece,row, col);
@@ -32,8 +32,7 @@ public class Resolve {
 					continue;
 
 				// Add piece piece to the board as parcial solution
-				board.getBoard()[row][col]=piece;
-				board.getPieces().add(0,pieceToPut);
+				board.addPiece(pieceToPut);
 				
 				if(piecesLeft.isEmpty()){
 					// If there is not more pieces is a final solution
@@ -48,8 +47,7 @@ public class Resolve {
 				}
 				
 				// Backtracking: Remove the piece of the board
-				board.getBoard()[row][col]=ConstantsUtil.EMPTY;
-				board.getPieces().remove(0);				
+				board.removePiece(pieceToPut);			
 			}
 		}
 		

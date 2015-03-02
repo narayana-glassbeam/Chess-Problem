@@ -1,6 +1,7 @@
 package uk.tests.trycatch.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import uk.tests.trycatch.util.ConstantsUtil;
 
@@ -20,9 +21,8 @@ public class Board {
 		super();
 		this.columns = columns;
 		this.rows = rows;
-		this.board = new String[this.rows][this.columns];
+		this.board = new Piece[this.rows][this.columns];
 		this.pieces= new ArrayList<Piece>();
-		this.inizializeBoard();
 	}
 		
 	/** Number of columns */
@@ -32,7 +32,7 @@ public class Board {
 	private int rows;
 
 	/** Board's positions */
-	private String[][] board;
+	private Piece[][] board;
 	
 	/** Board's pieces */
 	private ArrayList<Piece> pieces;
@@ -70,14 +70,14 @@ public class Board {
 	/**
 	 * @return the board
 	 */
-	public String[][] getBoard() {
+	public Piece[][] getBoard() {
 		return board;
 	}
 
 	/**
 	 * @param board the board to set
 	 */
-	public void setBoard(String[][] board) {
+	public void setBoard(Piece[][] board) {
 		this.board = board;
 	}
 	
@@ -97,13 +97,25 @@ public class Board {
 	}
 
 	/**
-	 * Initialize the board
+	 * Add a piece to the board
 	 */
-	private void inizializeBoard(){		
+	public void addPiece (Piece piece){
+		this.board[piece.getRow()][piece.getCol()]=piece;
+		this.pieces.add(0,piece);
+	}
+	
+	/**
+	 * Remove a piece from the board
+	 */
+	public void removePiece (Piece pieceOut){
+		this.board[pieceOut.getRow()][pieceOut.getCol()]=null;
 		
-		for(int row=0; row< this.rows; row++){
-			for(int col=0; col< this.columns; col++){
-				this.board[row][col] = ConstantsUtil.EMPTY;
+		Iterator<Piece> itr = pieces.iterator();
+		while (itr.hasNext()) {
+			Piece pieceIn = (Piece) itr.next();
+			if (pieceIn.equals(pieceOut)){
+				itr.remove();
+				break;
 			}
 		}
 		
@@ -117,12 +129,11 @@ public class Board {
 		
 		for(int row=0; row< this.rows; row++){
 			for(int col=0; col< this.columns; col++){
-				System.out.print(this.board[row][col] + " ");
+				System.out.print((this.board[row][col]==null)?ConstantsUtil.EMPTY + " ":this.board[row][col] + " ");
 			}
 			System.out.println();
 		}
 
-		System.out.print("Pieces position for this board: " + this.pieces);
 		System.out.println();
 		System.out.println();
 	}
@@ -136,7 +147,7 @@ public class Board {
 		
 		for(int row=0; row< this.rows; row++){
 			for(int col=0; col< this.columns; col++){
-				result += this.board[row][col] + " ";
+				result +=  (this.board[row][col]==null)?ConstantsUtil.EMPTY + " ":this.board[row][col] + " ";
 			}
 			result += "\n";
 		}

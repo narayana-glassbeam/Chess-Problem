@@ -64,6 +64,9 @@ public class Main {
 	    	
 	    }
 
+		System.out.println();
+		System.out.println();
+
 	    board = fillboard(rows, cols, kings, queens, bishops, knights, rooks, pieces);
 
 		 HashMap<Integer, Board> boards = new HashMap<Integer, Board>(); 

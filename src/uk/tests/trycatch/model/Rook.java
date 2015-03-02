@@ -18,7 +18,7 @@ public class Rook extends Piece {
 	
 	@Override
 	public String toString() {
-		return ConstantsUtil.ROOK + super.toString();
+		return ConstantsUtil.ROOK;
 	}
 	
 	public Boolean isTreatening(Piece p){

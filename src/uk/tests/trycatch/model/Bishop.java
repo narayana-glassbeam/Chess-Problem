@@ -18,7 +18,7 @@ public class Bishop extends Piece {
 	
 	@Override
 	public String toString() {
-		return ConstantsUtil.BISHOP + super.toString();
+		return ConstantsUtil.BISHOP;
 	}
 
 	public Boolean isTreatening(Piece p){

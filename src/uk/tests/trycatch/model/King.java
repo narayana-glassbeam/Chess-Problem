@@ -18,7 +18,7 @@ public class King extends Piece {
 	
 	@Override
 	public String toString() {
-		return ConstantsUtil.KING + super.toString();
+		return ConstantsUtil.KING;
 	}
 
 	public Boolean isTreatening(Piece p){

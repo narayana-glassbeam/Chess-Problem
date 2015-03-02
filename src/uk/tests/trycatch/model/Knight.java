@@ -18,7 +18,7 @@ public class Knight extends Piece {
 	
 	@Override
 	public String toString() {
-		return ConstantsUtil.KNIGHT + super.toString();
+		return ConstantsUtil.KNIGHT;
 	}
 
 	public Boolean isTreatening(Piece p){
