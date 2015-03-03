@@ -12,6 +12,10 @@ import uk.tests.trycatch.util.ConstantsUtil;
  */
 public class Knight extends Piece {
 	
+	public Knight() {
+		super(0, 0);
+	}
+	
 	public Knight(int row, int col) {
 		super(row, col);
 	}

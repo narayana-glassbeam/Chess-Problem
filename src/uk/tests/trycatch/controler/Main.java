@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import uk.tests.trycatch.model.Board;
+import uk.tests.trycatch.model.Piece;
 import uk.tests.trycatch.util.ConstantsUtil;
 
 public class Main {
@@ -71,18 +72,21 @@ public class Main {
 
 		 HashMap<Integer, Board> boards = new HashMap<Integer, Board>(); 
 		 long start = System.currentTimeMillis();
-
-		 Resolve.resolve(board, pieces, boards);
+		 
+		 Resolve.resolve(board, pieces, boards, new HashMap<String, Piece>());
 		 		
 		 long end = System.currentTimeMillis();
+		 
+		 long totalTime = end - start;
 
 		System.out.println("Number of boards: " + boards.size());
 
-		 System.out.println("Timing : " );
-		 if ((end - start) > 1000){
-			 System.out.println("Total time : " + TimeUnit.MILLISECONDS.toSeconds(end - start) + " seconds");
+		 if (totalTime > 60000){
+			 System.out.println("Total time : " + TimeUnit.MILLISECONDS.toMinutes(totalTime) + " minutes " + (TimeUnit.MILLISECONDS.toSeconds(totalTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(totalTime))) + " seconds");
+		 } else if (totalTime > 1000){
+			 System.out.println("Total time : " + TimeUnit.MILLISECONDS.toSeconds(totalTime) + " seconds");
 		 } else {
-			 System.out.println("Total time : " + (end - start) + " ms");
+			 System.out.println("Total time : " + (totalTime) + " ms");
 		 }
 		 
 	}

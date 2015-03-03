@@ -12,6 +12,10 @@ import uk.tests.trycatch.util.ConstantsUtil;
  */
 public class Bishop extends Piece {
 	
+	public Bishop() {
+		super(0, 0);
+	}
+	
 	public Bishop(int row, int col) {
 		super(row, col);
 	}

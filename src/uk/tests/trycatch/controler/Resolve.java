@@ -16,12 +16,31 @@ import uk.tests.trycatch.util.ConstantsUtil;
 
 public class Resolve {
 
-	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final HashMap<Integer, Board> boards){
+	/**
+	 * 
+	 * @param board 
+	 * @param piecesLeft - Remaining pieces to put in the board
+	 * @param boards - All solution boards
+	 * @param lastPieces - Last position for each kind of piece in the board 
+	 */
+	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final HashMap<Integer, Board> boards, HashMap<String, Piece> lastPieces){
 		
-		// Take the first availiable piece
+		// Take the first available piece
 		String piece = piecesLeft.remove(0);
-		for(int row=0; row<board.getRows(); row++){
-			for(int col=0; col<board.getColumns(); col++){
+
+		// Last piece on the board of this kind
+		Piece lastPiece = lastPieces.get(piece);
+
+		int r = 0;
+		int c = 0;
+		
+		if (lastPiece != null){
+			// Prune duplicate solutions.
+			r = lastPiece.getRow();
+			c = lastPiece.getCol();
+		}
+		for(int row=r; row<board.getRows(); row++){
+			for(int col=c; col<board.getColumns(); col++){
 				// If it isn't empty skip the iteration
 				if(board.getBoard()[row][col] != null)
 					continue;
@@ -31,8 +50,10 @@ public class Resolve {
 				if(!isSafe(pieceToPut, board.getPieces()))
 					continue;
 
-				// Add piece piece to the board as parcial solution
+				// Add piece piece to the board as partial solution
 				board.addPiece(pieceToPut);
+				
+				lastPieces.put(pieceToPut.toString(), pieceToPut);
 				
 				if(piecesLeft.isEmpty()){
 					// If there is not more pieces is a final solution
@@ -43,16 +64,20 @@ public class Resolve {
 					}
 				}else{
 					// Parcial solution. Resolve a smaller problem
-					resolve(board, piecesLeft, boards); 
+					resolve(board, piecesLeft, boards,lastPieces); 
 				}
 				
 				// Backtracking: Remove the piece of the board
 				board.removePiece(pieceToPut);			
 			}
+			// Reset column
+			c=0;
 		}
+		
 		
 		// Backtracking: Return the piece
 		piecesLeft.add(0, piece);
+		lastPieces.put(piece, null);
 	}
 	
 	/**

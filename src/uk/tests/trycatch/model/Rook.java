@@ -12,6 +12,10 @@ import uk.tests.trycatch.util.ConstantsUtil;
  */
 public class Rook extends Piece {
 	
+	public Rook() {
+		super(0, 0);
+	}
+	
 	public Rook(int row, int col) {
 		super(row, col);
 	}
