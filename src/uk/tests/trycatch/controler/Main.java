@@ -33,17 +33,19 @@ public class Main {
 		System.out.println("**************************************************************************************" );
 		System.out.println("");
 		System.out.println("[1] Default input." );
-		System.out.println("[2] Custom input." );
+		System.out.println("[2] Default input - printing all boards." );
+		System.out.println("[3] Custom input." );
+		System.out.println("[4] Custom input - printing all boards." );
 		System.out.print("Please select an option: " );
 	    int  opt = readInt(in, "Please select an option: " );   
 	    
-	    while (opt < 1 || opt > 2){
+	    while (opt < 1 || opt > 4){
 			System.out.print("Incorrect value. Please select an option: " );
 	    	opt = readInt(in, "Please select an option: " ); 
 	    }
 	   
 	    // Custom board options
-	    if(opt == 2){
+	    if(opt == 3 || opt == 4){
 	    	System.out.println("Please select board's size" );
 			System.out.print("Rows: " );
 			rows = readInt(in, "Rows: ");
@@ -63,18 +65,23 @@ public class Main {
 			rooks = readInt(in, "[R] Rooks: ");
 	    	
 	    }
+	    
+	    boolean printBoards = false;
+	    if(opt == 2 || opt == 4){
+	    	printBoards = true;
+	    }
 
 		System.out.println();
 		System.out.println();
 
 	    board = fillboard(rows, cols, kings, queens, bishops, knights, rooks);
 
-		 HashMap<Integer, Board> boards = new HashMap<Integer, Board>(); 
+		 HashMap<String, Board> boards = new HashMap<String, Board>(); 
 		 long start = System.currentTimeMillis();
 		 
 		 Resolve resolve = new Resolve();
 		 
-		 resolve.resolve(board, boards, new HashMap<String, Piece>());
+		 resolve.resolve(board, boards, new HashMap<String, Piece>(), printBoards);
 		 		
 		 long end = System.currentTimeMillis();
 		 

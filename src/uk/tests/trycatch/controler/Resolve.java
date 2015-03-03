@@ -19,7 +19,7 @@ public class Resolve {
 	 * @param boards - All solution boards
 	 * @param lastPieces - Last position for each kind of piece in the board 
 	 */
-	public void resolve(Board board, HashMap<Integer, Board> boards, HashMap<String, Piece> lastPieces){
+	public void resolve(Board board, HashMap<String, Board> boards, HashMap<String, Piece> lastPieces, boolean printBoards){
 		
 		ArrayList<String> remainingPieces = board.getRemainingPieces();
 		
@@ -57,14 +57,14 @@ public class Resolve {
 				
 				if(remainingPieces.isEmpty()){
 					// If there is not more pieces is a final solution
-					if(!boards.containsKey(board.hashCode())){
-						// Avoid duplicate results
-						boards.put(board.hashCode(), board);
+					// Avoid duplicate results using a unique key (the board itself)
+					boards.put(board.toString(), board);
+					if (printBoards)
 						board.printBoard();
-					}
+				
 				}else{
 					// Parcial solution. Resolve a smaller problem
-					resolve(board, boards,lastPieces); 
+					resolve(board, boards,lastPieces,printBoards); 
 				}
 				
 				// Backtracking: Remove the piece of the board

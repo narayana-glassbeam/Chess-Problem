@@ -170,13 +170,5 @@ public class Board {
 
 		return result;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return this.toString().hashCode();
-	}
-	
+		
 }
