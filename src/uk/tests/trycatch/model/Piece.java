@@ -41,9 +41,4 @@ public abstract class Piece implements IPiece {
 		this.col = col;
 	}
 	
-	@Override
-	public String toString() {
-		return "(" + this.row + "," + this.col + ")";
-	  }
-	
 }

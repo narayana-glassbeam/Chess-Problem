@@ -5,28 +5,26 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import uk.tests.trycatch.model.Bishop;
 import uk.tests.trycatch.model.Board;
-import uk.tests.trycatch.model.King;
-import uk.tests.trycatch.model.Knight;
 import uk.tests.trycatch.model.Piece;
-import uk.tests.trycatch.model.Queen;
-import uk.tests.trycatch.model.Rook;
-import uk.tests.trycatch.util.ConstantsUtil;
+import uk.tests.trycatch.model.PieceFactory;
 
 public class Resolve {
+	
+	public static final PieceFactory pieceFactory = new PieceFactory();
 
 	/**
 	 * 
 	 * @param board 
-	 * @param piecesLeft - Remaining pieces to put in the board
 	 * @param boards - All solution boards
 	 * @param lastPieces - Last position for each kind of piece in the board 
 	 */
-	public static void resolve(final Board board, final ArrayList<String> piecesLeft, final HashMap<Integer, Board> boards, HashMap<String, Piece> lastPieces){
+	public void resolve(Board board, HashMap<Integer, Board> boards, HashMap<String, Piece> lastPieces){
+		
+		ArrayList<String> remainingPieces = board.getRemainingPieces();
 		
 		// Take the first available piece
-		String piece = piecesLeft.remove(0);
+		String piece = remainingPieces.remove(0);
 
 		// Last piece on the board of this kind
 		Piece lastPiece = lastPieces.get(piece);
@@ -37,15 +35,17 @@ public class Resolve {
 		if (lastPiece != null){
 			// Prune duplicate solutions.
 			r = lastPiece.getRow();
-			c = lastPiece.getCol();
+			c = lastPiece.getCol()+1;
 		}
+		
 		for(int row=r; row<board.getRows(); row++){
 			for(int col=c; col<board.getColumns(); col++){
 				// If it isn't empty skip the iteration
 				if(board.getBoard()[row][col] != null)
 					continue;
 				
-				Piece pieceToPut = newPiece(piece,row, col);
+				Piece pieceToPut = pieceFactory.getPiece(piece,row, col);
+				
 				// Check if it is possible to put the piece into the board safely
 				if(!isSafe(pieceToPut, board.getPieces()))
 					continue;
@@ -55,7 +55,7 @@ public class Resolve {
 				
 				lastPieces.put(pieceToPut.toString(), pieceToPut);
 				
-				if(piecesLeft.isEmpty()){
+				if(remainingPieces.isEmpty()){
 					// If there is not more pieces is a final solution
 					if(!boards.containsKey(board.hashCode())){
 						// Avoid duplicate results
@@ -64,7 +64,7 @@ public class Resolve {
 					}
 				}else{
 					// Parcial solution. Resolve a smaller problem
-					resolve(board, piecesLeft, boards,lastPieces); 
+					resolve(board, boards,lastPieces); 
 				}
 				
 				// Backtracking: Remove the piece of the board
@@ -76,7 +76,7 @@ public class Resolve {
 		
 		
 		// Backtracking: Return the piece
-		piecesLeft.add(0, piece);
+		remainingPieces.add(0, piece);
 		lastPieces.put(piece, null);
 	}
 	
@@ -87,7 +87,7 @@ public class Resolve {
 	 * @param piecesInBoard
 	 * @return
 	 */
-	private static boolean isSafe(Piece piece, List<Piece> piecesInBoard){
+	private boolean isSafe(Piece piece, List<Piece> piecesInBoard){
 
 		boolean isSafe = true;
 		
@@ -107,26 +107,9 @@ public class Resolve {
 	 * @param piece2
 	 * @return True if one of the pieces is threatened.
 	 */
-	private static boolean isThreatened(Piece piece1, Piece piece2){
+	private boolean isThreatened(Piece piece1, Piece piece2){
 		return (piece1.isTreatening(piece2) || piece2.isTreatening(piece1));
 		
 	}
-
-	private static Piece newPiece(String pieceType, int row, int col){
-		
-		if(ConstantsUtil.KING.equals(pieceType)){
-			return new King(row, col);
-		} else if(ConstantsUtil.ROOK.equals(pieceType)){
-			return new Rook(row, col);
-		} if(ConstantsUtil.KNIGHT.equals(pieceType)){
-			return new Knight(row, col);
-		} else if(ConstantsUtil.QUEEN.equals(pieceType)){
-			return new Queen(row, col);
-		} else if(ConstantsUtil.BISHOP.equals(pieceType)){
-			return new Bishop(row, col);
-		} else return null;
-		
-	}
-	
 	
 }

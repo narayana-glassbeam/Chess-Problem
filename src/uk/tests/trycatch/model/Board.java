@@ -17,12 +17,13 @@ import uk.tests.trycatch.util.ConstantsUtil;
  */
 public class Board {
 	
-	public Board(int columns, int rows) {
+	public Board(int rows, int columns) {
 		super();
 		this.columns = columns;
 		this.rows = rows;
 		this.board = new Piece[this.rows][this.columns];
 		this.pieces= new ArrayList<Piece>();
+		this.remainingPieces= new ArrayList<String>();
 	}
 		
 	/** Number of columns */
@@ -36,6 +37,10 @@ public class Board {
 	
 	/** Board's pieces */
 	private ArrayList<Piece> pieces;
+	
+	/** Board's remaining pieces */
+	private ArrayList<String> remainingPieces;
+	
 	
 	
 	/**
@@ -97,6 +102,20 @@ public class Board {
 	}
 
 	/**
+	 * @return the remainingPieces
+	 */
+	public ArrayList<String> getRemainingPieces() {
+		return remainingPieces;
+	}
+
+	/**
+	 * @param remainingPieces the remainingPieces to set
+	 */
+	public void setRemainingPieces(ArrayList<String> remainingPieces) {
+		this.remainingPieces = remainingPieces;
+	}
+
+	/**
 	 * Add a piece to the board
 	 */
 	public void addPiece (Piece piece){
@@ -138,9 +157,6 @@ public class Board {
 		System.out.println();
 	}
 	
-	/**
-	 * For debugging purpose
-	 */
 	@Override
 	public String toString(){
 		String result = "";

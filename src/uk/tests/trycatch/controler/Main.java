@@ -14,7 +14,6 @@ public class Main {
 	public static void main(String[] args) {
 		
 	    Board board = null;
-	    ArrayList<String> pieces = new ArrayList<String>();
 	    
 	    // Default intput
 	    int rows = 7;
@@ -68,12 +67,14 @@ public class Main {
 		System.out.println();
 		System.out.println();
 
-	    board = fillboard(rows, cols, kings, queens, bishops, knights, rooks, pieces);
+	    board = fillboard(rows, cols, kings, queens, bishops, knights, rooks);
 
 		 HashMap<Integer, Board> boards = new HashMap<Integer, Board>(); 
 		 long start = System.currentTimeMillis();
 		 
-		 Resolve.resolve(board, pieces, boards, new HashMap<String, Piece>());
+		 Resolve resolve = new Resolve();
+		 
+		 resolve.resolve(board, boards, new HashMap<String, Piece>());
 		 		
 		 long end = System.currentTimeMillis();
 		 
@@ -96,24 +97,26 @@ public class Main {
 	 * Fill the board with input pieces
 	 */
 	private static Board fillboard(int rows, int cols, int kings, int queens,
-			int bishops, int knights, int rooks, ArrayList<String> pieces) {
+			int bishops, int knights, int rooks) {
 
 		 Board board = new Board(rows, cols);
-			
+		
+		 ArrayList<String> remainingPieces = board.getRemainingPieces();
+		 
 		 for (int i = 0; i < queens; i++) {
-			 pieces.add(ConstantsUtil.QUEEN);
+			 remainingPieces.add(ConstantsUtil.QUEEN);
 		 }			
 		 for (int i = 0; i < bishops; i++) {
-			 pieces.add(ConstantsUtil.BISHOP);
+			 remainingPieces.add(ConstantsUtil.BISHOP);
 		 }			
 		 for (int i = 0; i < rooks; i++) {
-			 pieces.add(ConstantsUtil.ROOK);
+			 remainingPieces.add(ConstantsUtil.ROOK);
 		 }			
 		 for (int i = 0; i < knights; i++) {
-			 pieces.add(ConstantsUtil.KNIGHT);
+			 remainingPieces.add(ConstantsUtil.KNIGHT);
 		 }			
 		 for (int i = 0; i < kings; i++) {
-			 pieces.add(ConstantsUtil.KING);
+			 remainingPieces.add(ConstantsUtil.KING);
 		 }
 		 
 		 return board;

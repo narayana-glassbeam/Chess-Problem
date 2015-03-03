@@ -1,4 +1,4 @@
-Problem
+﻿Problem
 =======
 
 The problem is to find all unique configurations of a set of normal chess pieces on a chess board with dimensions M×N where none of the pieces is in a position to take any of the others. Assume the colour of the piece does not matter, and that there are no pawns among the pieces.
@@ -38,7 +38,7 @@ Solution
 This problem is solved recursively by solving increasingly smaller problems.
 
 The procedure is as follows.
-- The first available piece is taken. We then try to put it in every spare board position. (N candidate boards could be generated. N = free squares in the board)
+- The first available piece is taken. We then try to put it in every spare board position.
 
 - There are 3 possibilities:
 	1. The piece attacks other piece, or the piece is threatened (attacked) by one of the other pieces in the board. This board is not a solution. Find the next free square.
@@ -47,3 +47,7 @@ The procedure is as follows.
 
 
 
+
+Optimitation
+------------
+Prune repeating solutions when the type of the candidate piece is already in the board, the first candidate cell to put the piece will be the next cell to the last piece of his kind in the board.
