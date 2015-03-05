@@ -2,8 +2,6 @@ package uk.tests.trycatch.controler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import uk.tests.trycatch.model.Board;
 import uk.tests.trycatch.model.Piece;
@@ -47,7 +45,7 @@ public class Resolve {
 				Piece pieceToPut = pieceFactory.getPiece(piece,row, col);
 				
 				// Check if it is possible to put the piece into the board safely
-				if(!isSafe(pieceToPut, board.getPieces()))
+				if(!pieceToPut.isSafe(board))
 					continue;
 
 				// Add piece piece to the board as partial solution
@@ -63,7 +61,7 @@ public class Resolve {
 						board.printBoard();
 				
 				}else{
-					// Parcial solution. Resolve a smaller problem
+					// Partial solution. Resolve a smaller problem
 					resolve(board, boards,lastPieces,printBoards); 
 				}
 				
@@ -79,37 +77,5 @@ public class Resolve {
 		remainingPieces.add(0, piece);
 		lastPieces.put(piece, null);
 	}
-	
-	/**
-	 * One piece is safe in the board, if the new piece is not threatened by any piece in the board,
-	 * and the new piece doesn't attack the other pieces in the board.
-	 * @param piece
-	 * @param piecesInBoard
-	 * @return
-	 */
-	private boolean isSafe(Piece piece, List<Piece> piecesInBoard){
-
-		boolean isSafe = true;
 		
-		for (Iterator<Piece> iterator = piecesInBoard.iterator(); iterator.hasNext();) {
-			Piece pieceAux = (Piece) iterator.next();
-			isSafe &= !isThreatened(piece, pieceAux);
-		}
-
-		return isSafe;
-		
-	}
-
-	/**
-	 * Two pieces are threatened if one attacks the other or vice-versa
-	 * 
-	 * @param piece1
-	 * @param piece2
-	 * @return True if one of the pieces is threatened.
-	 */
-	private boolean isThreatened(Piece piece1, Piece piece2){
-		return (piece1.isTreatening(piece2) || piece2.isTreatening(piece1));
-		
-	}
-	
 }

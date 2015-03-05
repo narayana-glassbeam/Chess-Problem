@@ -31,7 +31,7 @@ public class PieceFactory {
 	   }
 	      
 	    /**
-	     * Get an objecto of type piece in the default position  
+	     * Get an object of type piece in the default position  
 	     *   
 	     * @param pieceType
 	     * @param row
